@@ -2,6 +2,7 @@
 Code for our ICASSP 2022 paper: [TOWARDS LIFELONG LEARNING OF MULTILINGUAL TEXT-TO-SPEECH SYNTHESIS](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9746968). Audio demo is available [here](https://mu-y.github.io/speech_samples/llltts/).
 
 ## Install dependencies
+Install a Pytorch version that is compatible to your CUDA setups. Then
 ```
 pip install -r requirements.txt 
 ```
@@ -54,4 +55,16 @@ python train_continual.py --hyper_parameters finetune.json --save_dir exp_finetu
   - EWC: https://github.com/moskomule/ewc.pytorch
   - GEM: https://github.com/facebookresearch/GradientEpisodicMemory
 
-
+## Citation
+Cite our paper!
+```
+@INPROCEEDINGS{9746968,
+  author={Yang, Mu and Ding, Shaojin and Chen, Tianlong and Wang, Tong and Wang, Zhangyang},
+  booktitle={ICASSP 2022 - 2022 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)}, 
+  title={Towards Lifelong Learning of Multilingual Text-to-Speech Synthesis}, 
+  year={2022},
+  volume={},
+  number={},
+  pages={8022-8026},
+  doi={10.1109/ICASSP43922.2022.9746968}}
+```
