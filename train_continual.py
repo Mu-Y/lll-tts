@@ -19,7 +19,6 @@ from gem import GEM
 import copy
 import pickle
 import tqdm
-import pdb
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)  # do not print Deprecation Warnings
 
@@ -588,7 +587,7 @@ if __name__ == '__main__':
                 #     f"train_german_w-ipa.txt" if hp.use_phonemes else f"train_german.txt",
                 #     f"val_german_w-ipa.txt" if hp.use_phonemes else f"val_german.txt")
                 # train_data_old = DataLoader(dataset_old.train, batch_size=hp.batch_size,
-                #         drop_last=True, shuffle=(not hp.multi_language or not hp.balanced_sampling),
+                #         drop_last=True, shuffle=False,
                 #         sampler=None, collate_fn=TextToSpeechCollate(True),
                 #         num_workers=args.loader_workers)
                 # ewc.update_fisher(train_data_old)
@@ -603,7 +602,6 @@ if __name__ == '__main__':
                 # }
                 # torch.save(state_dict, "{}-fisher".format(args.checkpoint))
                 # print("model saved to {}-fisher".format(args.checkpoint))
-                # pdb.set_trace()
                 ###########################################
 
 
