@@ -1,5 +1,5 @@
 {
-	"batch_size": 24,
+	"batch_size": 84,
 	"case_sensitive": false,
 	"characters": " abcdefghijklmnopqrstuvwxyzçèéßäöōǎǐíǒàáǔüèéìūòóùúāēěīâêôûñőűабвгдежзийклмнопрстуфхцчшщъыьэюяёάέήίαβγδεζηθικλμνξοπρςíστυφχψωόύώ",
 	"checkpoint_each_epochs": 5,

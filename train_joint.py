@@ -11,7 +11,6 @@ from params.params import Params as hp
 from utils import audio, text
 from modules.tacotron2 import Tacotron, TacotronLoss
 from utils.logging import Logger
-from utils.samplers import RandomImbalancedSampler
 from utils import lengths_to_mask, to_gpu
 import warnings
 import pickle

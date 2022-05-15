@@ -11,7 +11,7 @@ from params.params import Params as hp
 from utils import audio, text
 from modules.tacotron2 import Tacotron, TacotronLoss
 from utils.logging import Logger
-from utils.samplers import RandomImbalancedSampler, BalancedBatchSampler
+from utils.samplers import WeightedSampler, BalancedBatchSampler
 from utils import lengths_to_mask, to_gpu
 import warnings
 from ewc import EWC
@@ -493,9 +493,9 @@ if __name__ == '__main__':
         if hp.use_replay and (not hp.use_gem):
             dataset.train.concat_dataset(prev_samples)
             if hp.weighted_sampling:
-                sampler = RandomImbalancedSampler(dataset.train)
+                sampler = WeightedSampler(dataset.train)
                 train_data = DataLoader(dataset.train, batch_size=hp.batch_size, drop_last=True,
-                                shuffle=False, sampler=RandomImbalancedSampler(dataset.train),
+                                shuffle=False, sampler=WeightedSampler(dataset.train),
                                 collate_fn=TextToSpeechCollate(True), num_workers=args.loader_workers)
             elif hp.dual_sampling:
                 train_data_rrs = DataLoader(dataset.train, batch_size=hp.batch_size, drop_last=True,

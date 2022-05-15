@@ -4,7 +4,7 @@ from dataset.dataset import TextToSpeechDataset
 import random
 
 
-class RandomImbalancedSampler(Sampler):
+class WeightedSampler(Sampler):
     """Samples randomly imbalanced dataset (with repetition).
 
     Argument:
