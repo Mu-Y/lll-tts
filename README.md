@@ -19,7 +19,7 @@ The baselines alrogithms require other dependencies. Please look at the correspo
   
 ## Training
 We form a language sequence of German -- Dutch -- Chinese -- Japanese.
-The following commands assume that we have a model checkpoint trained on German, and we want to continually and sequentially train the model on the following three languages. We provide a pre-trained German checkpoint [here](TODO).
+The following commands assume that we have a model checkpoint trained on German, and we want to continually and sequentially train the model on the following three languages. We provide a pre-trained German checkpoint [here](https://drive.google.com/drive/folders/1t9FBu3L4KzQ901J_0hKUZ5mFDFfRmGQ1?usp=sharing).
 
 Train the proposed data replay scheme with the dual-sampling strategy.
 ```
@@ -42,11 +42,34 @@ Train the lower-bound approach (fine-tune).
 python train_continual.py --hyper_parameters finetune.json --save_dir exp_finetune --checkpoint checkpoints_ge/checkpoints/SHARED-TRAINING_loss-99-0.147
 ```
 
+The upper-bound approach is to train a normal TTS model on all 4 languages jointly, not sequentially.
+```
+python train_joint.py --hyper_parameters joint.json --save_dir exp_joint
+```
 
-## TODO
-- Add urls to the pre-trained models.
-- Upper bound (joint) scripts.
-- Synthsis scripts.
+## Inference
+We use WaveRNN for vocoder. To generate waveforms, first download and setup the WaveRNN vocoder:
+```
+git clone https://github.com/Tomiinek/WaveRNN
+# download the WaveRNN checkpoint trained on the entire CSS10 corpus
+cd WaveRNN/
+mkdir -p checkpoints && cd checkpoints
+curl -O -L "https://github.com/Tomiinek/Multilingual_Text_to_Speech/releases/download/v1.0/wavernn_weight.pyt" 
+```
+Then append the path to the `WaveRNN` folder to the `PYTHONPATH` variable:
+```
+export PYTHONPATH=$PYTHONPATH:<absolute path to the WaveRNN dir>
+```
+Finally, use the following command to generate a waveform:
+```
+# at the root of this repo
+python synthesize.py --tts_ckpt_path release_checkpoints/dual_samp/SHARED-TRAINING_loss-299-0.108 \
+                     --wavernn_path <absolute path to the WaveRNN dir> \
+                     --wavernn_ckpt_path <absolute path to the pre-trained WaveRNN checkpoint> \
+                     --text "|fēi tè xìucái yīnwèi shàngchéng qù bàoguān， bèi bùhǎo de gémìngdǎng jiǎn le biànzǐ， érqiě yòu pòfèi le èrshí qiān de shǎngqián， suǒyǐ quánjiā yě hàotáo le。|chinese|chinese" \
+                     --saved_wav generated.wav
+```
+The above command shows an example of synthesizing Chinese speech, using the model trained by our proposed dual-sampler method after the entire training sequence finished. We release a few trained models by different approaches. Models can be downloaded [here](https://drive.google.com/drive/folders/17a1d8Dgy2aGO4wNhRkzcGi_8cmWUclf8?usp=sharing).
 
 
 ## Acknowledgements
